@@ -32,7 +32,8 @@ export function Footer() {
           <div className="text-sm font-semibold">Connect</div>
           <div className="mt-3 flex flex-col gap-2 text-sm text-muted-foreground">
             <a href="mailto:hello@samehnaim.dev" className="inline-flex items-center gap-2 hover:text-foreground">
-              <Mail className="h-4 w-4" /> hello@samehnaim.dev
+              <Mail className="h-4 w-4" />
+              <span>hello@samehnaim.dev</span>
             </a>
             <a href="https://github.com/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-foreground">
               <Github className="h-4 w-4" /> GitHub
