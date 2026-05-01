@@ -73,6 +73,17 @@ model Project {
   @@index([featured])
 }
 
+model Testimonial {
+  id           String   @id @default(cuid())
+  quote        String   @db.Text
+  author       String
+  organization String
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  @@index([order])
+}
+
 model ContactMessage {
   id            String   @id @default(cuid())
   name          String
