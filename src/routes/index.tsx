@@ -3,13 +3,14 @@ import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useFetch } from "@/hooks/useDataSource";
 import {
-  profile,
-  projects,
-  services,
-  skills,
-  testimonials,
-} from "@/lib/seed-data";
+  getProfile,
+  getProjects,
+  getServices,
+  getSkills,
+  getTestimonials,
+} from "@/lib/api-client";
 import {
   Reveal,
   MotionDiv,
@@ -38,9 +39,15 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
-  const featured = projects.filter((p) => p.featured).slice(0, 4);
+  const { data: profile } = useFetch(() => getProfile());
+  const { data: projects } = useFetch(() => getProjects());
+  const { data: services } = useFetch(() => getServices());
+  const { data: skills } = useFetch(() => getSkills());
+  const { data: testimonials } = useFetch(() => getTestimonials());
+
+  const featured = (projects ?? []).filter((p) => p.featured).slice(0, 4);
   const techStack = Array.from(
-    new Set(skills.map((s) => s.name).concat(["Moodle", "AWS", "Docker", "Linux"]))
+    new Set((skills ?? []).map((s) => s.name).concat(["Moodle", "AWS", "Docker", "Linux"]))
   ).slice(0, 18);
 
   return (
