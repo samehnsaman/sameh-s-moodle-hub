@@ -6,6 +6,7 @@ import { skillsRouter } from "./routes/skills.js";
 import { servicesRouter } from "./routes/services.js";
 import { projectsRouter } from "./routes/projects.js";
 import { testimonialsRouter } from "./routes/testimonials.js";
+import { pluginsRouter } from "./routes/plugins.js";
 import { contactRouter } from "./routes/contact.js";
 
 const app = express();
@@ -29,6 +30,7 @@ app.use("/api/skills", skillsRouter);
 app.use("/api/services", servicesRouter);
 app.use("/api/projects", projectsRouter);
 app.use("/api/testimonials", testimonialsRouter);
+app.use("/api/plugins", pluginsRouter);
 app.use("/api/contact", contactRouter);
 
 // 404

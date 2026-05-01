@@ -13,6 +13,7 @@ async function main() {
   await prisma.service.deleteMany();
   await prisma.skill.deleteMany();
   await prisma.testimonial.deleteMany();
+  await prisma.plugin.deleteMany();
   await prisma.userProfile.deleteMany();
 
   await prisma.userProfile.create({
@@ -253,6 +254,31 @@ async function main() {
         author: "CTO",
         organization: "EdTech startup",
         order: 3,
+      },
+    ],
+  });
+
+  await prisma.plugin.createMany({
+    data: [
+      {
+        name: "Student Attendance Block",
+        slug: "student-attendance-block",
+        description:
+          "Moodle block that surfaces each student's attendance stats per course in a card carousel.",
+        category: "Moodle plugin",
+        url: "https://moodle.org/plugins/",
+        featured: true,
+        order: 1,
+      },
+      {
+        name: "Engagement & Analytics Dashboard",
+        slug: "engagement-analytics-dashboard",
+        description:
+          "Local Moodle plugin tracking engagement signals with at-risk learner alerts.",
+        category: "Moodle plugin",
+        url: "https://moodle.org/plugins/",
+        featured: true,
+        order: 2,
       },
     ],
   });
