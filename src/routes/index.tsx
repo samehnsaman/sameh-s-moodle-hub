@@ -200,7 +200,7 @@ function HomePage() {
             variants={stagger}
             className="grid gap-8 md:grid-cols-3"
           >
-            {services.slice(0, 3).map((s, i) => (
+            {(services ?? []).slice(0, 3).map((s, i) => (
               <motion.div
                 key={s.id}
                 variants={fadeUp}
@@ -346,7 +346,7 @@ function HomePage() {
             variants={stagger}
             className="grid gap-6 md:grid-cols-3"
           >
-            {testimonials.map((t, i) => (
+            {(testimonials ?? []).map((t, i) => (
               <motion.div
                 key={i}
                 variants={fadeUp}
