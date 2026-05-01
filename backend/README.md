@@ -60,6 +60,8 @@ npm run dev
 
 ## API endpoints
 
+### Public
+
 | Method | Path | Notes |
 |---|---|---|
 | GET | `/api/profile` | Returns `UserProfile` |
@@ -71,6 +73,14 @@ npm run dev
 | GET | `/api/plugins` | List plugins (Moodle/WordPress/etc), ordered |
 | POST | `/api/contact` | Create contact message (rate-limited, Zod-validated) |
 | GET | `/healthz` | Health check |
+
+### Admin (JWT-protected — see top-level `README.md` for full details)
+
+| Method | Path | Notes |
+|---|---|---|
+| POST | `/api/auth/login` | Body `{email,password}` → `{token,expiresIn}`. Rate-limited 10/15min. |
+| GET | `/api/auth/me` | Returns current admin (requires `Authorization: Bearer <token>`) |
+| GET\|POST\|PATCH\|DELETE | `/api/admin/:slug[/:id]` | Generic CRUD. `slug` ∈ `plugins,projects,services,skills,testimonials,profile,messages` |
 
 ## Connecting the frontend
 
