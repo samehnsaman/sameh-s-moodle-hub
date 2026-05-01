@@ -67,6 +67,7 @@ npm run dev
 | GET | `/api/services` | List services |
 | GET | `/api/projects?type=&featured=` | List projects with optional filters |
 | GET | `/api/projects/:slug` | One project |
+| GET | `/api/testimonials` | List testimonials, ordered |
 | POST | `/api/contact` | Create contact message (rate-limited, Zod-validated) |
 | GET | `/healthz` | Health check |
 
