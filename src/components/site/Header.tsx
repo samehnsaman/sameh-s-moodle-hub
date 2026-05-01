@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
@@ -15,10 +16,18 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <motion.header
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="sticky top-0 z-40 border-b border-border/60 bg-background/70 backdrop-blur-xl"
+    >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link to="/" className="flex items-center gap-2 font-display text-lg font-bold tracking-tight">
-          <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
+        <Link
+          to="/"
+          className="flex items-center gap-2 font-display text-lg font-bold tracking-tight"
+        >
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-gold text-background shadow-md">
             SN
           </span>
           <span>Sameh Naim</span>
@@ -30,14 +39,18 @@ export function Header() {
               key={item.to}
               to={item.to}
               activeOptions={{ exact: item.to === "/" }}
-              activeProps={{ className: "text-foreground bg-accent" }}
-              inactiveProps={{ className: "text-muted-foreground" }}
-              className="rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-foreground"
+              activeProps={{ className: "text-gold" }}
+              inactiveProps={{ className: "text-foreground/70" }}
+              className="rounded-full px-4 py-2 text-sm font-medium transition-colors hover:text-foreground"
             >
               {item.label}
             </Link>
           ))}
-          <Button asChild size="sm" className="ml-2">
+          <Button
+            asChild
+            size="sm"
+            className="ml-2 rounded-full bg-gold text-gold-foreground hover:bg-gold/90"
+          >
             <Link to="/contact">Hire me</Link>
           </Button>
         </nav>
@@ -60,8 +73,8 @@ export function Header() {
                 key={item.to}
                 to={item.to}
                 activeOptions={{ exact: item.to === "/" }}
-                activeProps={{ className: "text-foreground bg-accent" }}
-                inactiveProps={{ className: "text-muted-foreground" }}
+                activeProps={{ className: "text-gold" }}
+                inactiveProps={{ className: "text-foreground/70" }}
                 className="rounded-md px-3 py-2 text-sm font-medium"
                 onClick={() => setOpen(false)}
               >
@@ -71,6 +84,6 @@ export function Header() {
           </nav>
         </div>
       )}
-    </header>
+    </motion.header>
   );
 }
