@@ -89,13 +89,13 @@ function ProjectDetailPage() {
 
       <Section title="Outcomes">
         <ul className="list-disc space-y-1.5 pl-5">
-          {p.outcomes.map((o) => <li key={o}>{o}</li>)}
+          {p.outcomes.map((o: string) => <li key={o}>{o}</li>)}
         </ul>
       </Section>
 
       <Section title="Tech stack">
         <div className="flex flex-wrap gap-1.5">
-          {p.tech_stack.map((t) => (
+          {p.tech_stack.map((t: string) => (
             <Badge key={t} variant="secondary">{t}</Badge>
           ))}
         </div>
