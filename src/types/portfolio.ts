@@ -76,6 +76,23 @@ export interface Testimonial {
   organization: string;
 }
 
+export type PluginCategory = "Moodle plugin" | "WordPress plugin" | "Other";
+
+export interface Plugin {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  category: PluginCategory | string;
+  url: string;
+  repo_url?: string | null;
+  download_url?: string | null;
+  version?: string | null;
+  icon_url?: string | null;
+  featured: boolean;
+  order: number;
+}
+
 export interface ContactPayload {
   name: string;
   email: string;
