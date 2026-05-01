@@ -13,7 +13,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { isApiConfigured, submitContact } from "@/lib/api-client";
+import { submitContact } from "@/lib/api-client";
+import { useDataSource } from "@/hooks/useDataSource";
 import type { ContactPayload } from "@/types/portfolio";
 import { Mail, MapPin, AlertCircle, CheckCircle2 } from "lucide-react";
 
@@ -84,6 +85,8 @@ function ContactPage() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
+  const { mode, baseUrl } = useDataSource();
+  const apiReady = mode === "api" && Boolean(baseUrl);
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((f) => ({ ...f, [key]: value }));
@@ -149,7 +152,7 @@ function ContactPage() {
 
       <div className="grid gap-10 md:grid-cols-[1fr_280px]">
         <form onSubmit={onSubmit} noValidate className="space-y-5">
-          {!isApiConfigured && (
+          {!apiReady && (
             <div className="flex gap-3 rounded-md border border-amber-300/60 bg-amber-50 p-3 text-sm text-amber-900 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-200">
               <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
               <div>
