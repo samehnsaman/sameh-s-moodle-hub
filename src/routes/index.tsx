@@ -100,7 +100,7 @@ function HomePage() {
               variants={fadeUp}
               className="mt-8 max-w-[60ch] text-lg text-foreground/70"
             >
-              Freelance Moodle developer & full-stack engineer in {profile.location}.
+              Freelance Moodle developer & full-stack engineer in {profile?.location ?? "Cairo, Egypt"}.
               Transforming complex LMS challenges into elegant, scalable
               solutions for schools and universities.
             </motion.p>
@@ -129,7 +129,7 @@ function HomePage() {
               variants={fadeUp}
               className="mt-10 text-sm text-foreground/60"
             >
-              📍 {profile.location} · {profile.years_experience}+ years experience
+              📍 {profile?.location ?? "Cairo, Egypt"} · {profile?.years_experience ?? 8}+ years experience
             </motion.div>
           </MotionDiv>
 
