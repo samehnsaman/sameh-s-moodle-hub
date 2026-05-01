@@ -12,6 +12,7 @@ async function main() {
   await prisma.project.deleteMany();
   await prisma.service.deleteMany();
   await prisma.skill.deleteMany();
+  await prisma.testimonial.deleteMany();
   await prisma.userProfile.deleteMany();
 
   await prisma.userProfile.create({
@@ -226,6 +227,32 @@ async function main() {
         status: "live",
         featured: false,
         projectType: "WordPress plugin",
+      },
+    ],
+  });
+
+  await prisma.testimonial.createMany({
+    data: [
+      {
+        quote:
+          "Sameh rebuilt our Moodle instance from a slow, crashing nightmare into something our staff actually enjoy using. The custom attendance block alone saved hours every week.",
+        author: "IT Director",
+        organization: "Private school, Cairo",
+        order: 1,
+      },
+      {
+        quote:
+          "We needed our timetable system to talk to Moodle. Sameh delivered a clean integration that just works — and is still working two years later.",
+        author: "Head of Academics",
+        organization: "Training center",
+        order: 2,
+      },
+      {
+        quote:
+          "Reliable, communicative, and genuinely good at the unglamorous parts of LMS work — performance tuning, server hardening, plugin upgrades.",
+        author: "CTO",
+        organization: "EdTech startup",
+        order: 3,
       },
     ],
   });

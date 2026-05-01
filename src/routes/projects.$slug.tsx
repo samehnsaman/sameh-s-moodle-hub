@@ -2,11 +2,12 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { projects } from "@/lib/seed-data";
+import { useFetch } from "@/hooks/useDataSource";
+import { getProjectBySlug } from "@/lib/api-client";
 
 export const Route = createFileRoute("/projects/$slug")({
-  loader: ({ params }) => {
-    const project = projects.find((p) => p.slug === params.slug);
+  loader: async ({ params }) => {
+    const project = await getProjectBySlug(params.slug);
     if (!project) throw notFound();
     return { project };
   },
@@ -41,7 +42,11 @@ export const Route = createFileRoute("/projects/$slug")({
 });
 
 function ProjectDetailPage() {
-  const { project: p } = Route.useLoaderData();
+  const { project: loaderProject } = Route.useLoaderData();
+  const params = Route.useParams();
+  // Re-fetch when data source changes so editors see DB updates without nav.
+  const { data: live } = useFetch(() => getProjectBySlug(params.slug), [params.slug]);
+  const p = live ?? loaderProject;
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16">

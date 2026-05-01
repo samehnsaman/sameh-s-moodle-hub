@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { services, skills } from "@/lib/seed-data";
+import { useFetch } from "@/hooks/useDataSource";
+import { getServices, getSkills } from "@/lib/api-client";
 import type { SkillCategory } from "@/types/portfolio";
 
 export const Route = createFileRoute("/services")({
@@ -33,6 +34,10 @@ const categoryOrder: SkillCategory[] = [
 ];
 
 function ServicesPage() {
+  const { data: services } = useFetch(() => getServices());
+  const { data: skills } = useFetch(() => getSkills());
+  const servicesList = services ?? [];
+  const skillsList = skills ?? [];
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <div className="mb-12 max-w-2xl">
@@ -52,7 +57,7 @@ function ServicesPage() {
       <section className="mb-20">
         <h2 className="mb-6 text-2xl font-bold tracking-tight">Services</h2>
         <div className="grid gap-5 md:grid-cols-2">
-          {services.map((s) => (
+          {servicesList.map((s) => (
             <Card key={s.id} className="border-border/60">
               <CardHeader>
                 <CardTitle>{s.title}</CardTitle>
@@ -82,7 +87,7 @@ function ServicesPage() {
         <h2 className="mb-6 text-2xl font-bold tracking-tight">Skills</h2>
         <div className="grid gap-5 md:grid-cols-2">
           {categoryOrder.map((cat) => {
-            const list = skills.filter((s) => s.category === cat);
+            const list = skillsList.filter((s) => s.category === cat);
             if (list.length === 0) return null;
             return (
               <Card key={cat} className="border-border/60">

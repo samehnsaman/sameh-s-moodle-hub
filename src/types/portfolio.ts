@@ -69,6 +69,13 @@ export interface Project {
   github_url?: string | null;
 }
 
+export interface Testimonial {
+  id?: string;
+  quote: string;
+  author: string;
+  organization: string;
+}
+
 export interface ContactPayload {
   name: string;
   email: string;

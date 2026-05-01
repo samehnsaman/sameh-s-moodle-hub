@@ -3,7 +3,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { projects as seedProjects } from "@/lib/seed-data";
+import { useFetch } from "@/hooks/useDataSource";
+import { getProjects } from "@/lib/api-client";
 import type { ProjectType } from "@/types/portfolio";
 
 export const Route = createFileRoute("/projects")({
@@ -36,14 +37,12 @@ const filters: Array<{ label: string; value: ProjectType | "all" }> = [
 
 function ProjectsPage() {
   const [active, setActive] = useState<ProjectType | "all">("all");
+  const { data: allProjects, loading } = useFetch(() => getProjects());
 
-  const list = useMemo(
-    () =>
-      active === "all"
-        ? seedProjects
-        : seedProjects.filter((p) => p.project_type === active),
-    [active]
-  );
+  const list = useMemo(() => {
+    const src = allProjects ?? [];
+    return active === "all" ? src : src.filter((p) => p.project_type === active);
+  }, [active, allProjects]);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
@@ -71,7 +70,9 @@ function ProjectsPage() {
         ))}
       </div>
 
-      {list.length === 0 ? (
+      {loading && list.length === 0 ? (
+        <p className="text-muted-foreground">Loading projects…</p>
+      ) : list.length === 0 ? (
         <p className="text-muted-foreground">No projects in this category yet.</p>
       ) : (
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">

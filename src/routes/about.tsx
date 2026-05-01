@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { profile, projects } from "@/lib/seed-data";
+import { useFetch } from "@/hooks/useDataSource";
+import { getProfile, getProjects } from "@/lib/api-client";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -23,8 +24,11 @@ export const Route = createFileRoute("/about")({
 });
 
 function AboutPage() {
+  const { data: profile } = useFetch(() => getProfile());
+  const { data: projects } = useFetch(() => getProjects());
+
   // Build a simple timeline from projects (newest first)
-  const milestones = [...projects]
+  const milestones = [...(projects ?? [])]
     .sort((a, b) => (a.start_date < b.start_date ? 1 : -1))
     .map((p) => ({
       year: new Date(p.start_date).getFullYear(),
@@ -32,6 +36,14 @@ function AboutPage() {
       description: p.short_description,
       type: p.project_type,
     }));
+
+  if (!profile) {
+    return (
+      <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+        <p className="text-muted-foreground">Loading…</p>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
