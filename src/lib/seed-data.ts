@@ -3,6 +3,7 @@
 // The backend seed file mirrors this data.
 
 import type {
+  Plugin,
   Project,
   Service,
   Skill,
@@ -267,5 +268,30 @@ export const testimonials = [
       "Reliable, communicative, and genuinely good at the unglamorous parts of LMS work — performance tuning, server hardening, plugin upgrades.",
     author: "CTO",
     organization: "EdTech startup",
+  },
+];
+
+export const plugins: Plugin[] = [
+  {
+    id: "pl1",
+    name: "Student Attendance Block",
+    slug: "student-attendance-block",
+    description:
+      "Moodle block that surfaces each student's attendance stats per course in a card carousel.",
+    category: "Moodle plugin",
+    url: "https://moodle.org/plugins/",
+    featured: true,
+    order: 1,
+  },
+  {
+    id: "pl2",
+    name: "Engagement & Analytics Dashboard",
+    slug: "engagement-analytics-dashboard",
+    description:
+      "Local Moodle plugin tracking engagement signals with at-risk learner alerts.",
+    category: "Moodle plugin",
+    url: "https://moodle.org/plugins/",
+    featured: true,
+    order: 2,
   },
 ];

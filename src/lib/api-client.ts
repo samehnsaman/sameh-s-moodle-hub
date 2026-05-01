@@ -7,6 +7,7 @@
 import type {
   ContactPayload,
   ContactResponse,
+  Plugin,
   Project,
   ProjectType,
   Service,
@@ -16,6 +17,7 @@ import type {
   UserProfile,
 } from "@/types/portfolio";
 import {
+  plugins as seedPlugins,
   profile as seedProfile,
   projects as seedProjects,
   services as seedServices,
@@ -100,6 +102,16 @@ export async function getTestimonials(): Promise<Testimonial[]> {
     return await apiGet<Testimonial[]>(src.baseUrl, "/api/testimonials");
   } catch {
     return seedTestimonials;
+  }
+}
+
+export async function getPlugins(): Promise<Plugin[]> {
+  const src = useApi();
+  if (src.mode === "mock") return seedPlugins;
+  try {
+    return await apiGet<Plugin[]>(src.baseUrl, "/api/plugins");
+  } catch {
+    return seedPlugins;
   }
 }
 

@@ -84,6 +84,26 @@ model Testimonial {
   @@index([order])
 }
 
+model Plugin {
+  id           String   @id @default(cuid())
+  name         String
+  slug         String   @unique
+  description  String   @db.Text
+  category     String   @default("Moodle plugin") // "Moodle plugin" | "WordPress plugin" | "Other"
+  url          String   // primary link (download / repo / product page)
+  repoUrl      String?
+  downloadUrl  String?
+  version      String?
+  iconUrl      String?
+  featured     Boolean  @default(false)
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([category])
+  @@index([order])
+}
+
 model ContactMessage {
   id            String   @id @default(cuid())
   name          String
