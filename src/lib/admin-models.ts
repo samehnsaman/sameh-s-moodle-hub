@@ -176,7 +176,7 @@ export const MODELS: ModelDef[] = [
     titleField: "name",
     subtitleField: "title",
     imageField: "avatarUrl",
-    canCreate: false, // singleton — edit existing only
+    canCreate: true, // allow creating the initial singleton row from the UI
     canDelete: false,
     fields: [
       { name: "name", label: "Name", type: "text", required: true },
