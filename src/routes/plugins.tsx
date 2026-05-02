@@ -11,17 +11,22 @@ import { Reveal, fadeUp, stagger } from "@/components/site/motion";
 export const Route = createFileRoute("/plugins")({
   head: () => ({
     meta: [
-      { title: "Plugins — Sameh Naim" },
+      { title: "Moodle & WordPress Plugins by Sameh Naim" },
       {
         name: "description",
         content:
-          "Open and commercial plugins built by Sameh Naim — Moodle blocks, local plugins, WordPress extensions, and more.",
+          "Open-source and commercial Moodle plugins and WordPress plugins built by Sameh Naim — blocks, local plugins, integrations, and more for LMS and web development.",
       },
-      { property: "og:title", content: "Plugins — Sameh Naim" },
+      {
+        name: "keywords",
+        content:
+          "Moodle plugins, Moodle blocks, Moodle local plugin, WordPress plugins, LMS plugins, web development plugins",
+      },
+      { property: "og:title", content: "Moodle & WordPress Plugins by Sameh Naim" },
       {
         property: "og:description",
         content:
-          "Browse plugins I've built and shipped — Moodle, WordPress, and beyond.",
+          "Browse Moodle and WordPress plugins I've built and shipped.",
       },
     ],
   }),

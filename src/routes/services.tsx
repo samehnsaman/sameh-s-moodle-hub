@@ -9,17 +9,22 @@ import type { SkillCategory } from "@/types/portfolio";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services & Skills — Sameh Naim" },
+      { title: "Moodle, LMS & WordPress Development Services — Sameh Naim" },
       {
         name: "description",
         content:
-          "Moodle development, LMS integrations, school management systems, and DevOps services. Skills across PHP, Node.js, MySQL, AWS, and Linux.",
+          "Moodle plugin development, LMS integration, WordPress development, school management systems, and DevOps. Full-stack web development services for schools and EdTech companies.",
       },
-      { property: "og:title", content: "Services & Skills — Sameh Naim" },
+      {
+        name: "keywords",
+        content:
+          "Moodle development services, LMS integration services, WordPress development services, web development services, Moodle plugin developer for hire, WordPress plugin developer",
+      },
+      { property: "og:title", content: "Moodle, LMS & WordPress Development Services" },
       {
         property: "og:description",
         content:
-          "Moodle development, LMS integrations, and full-stack engineering services.",
+          "Moodle development, LMS integrations, WordPress, and full-stack web development services.",
       },
     ],
   }),
