@@ -187,6 +187,7 @@ export const MODELS: ModelDef[] = [
       { name: "avatarUrl", label: "Avatar URL", type: "url" },
       { name: "heroImageUrl", label: "Hero image URL", type: "url", help: "Replaces the big SN tile on the home page" },
       { name: "faviconUrl", label: "Favicon URL", type: "url", help: "Browser tab icon (PNG/SVG/ICO)" },
+      { name: "gaTrackingId", label: "Google Analytics ID", type: "text", placeholder: "G-XXXXXXXXXX", help: "GA4 Measurement ID (starts with G-) or legacy UA-XXXXXXXX. Leave empty to disable analytics." },
       { name: "yearsExperience", label: "Years of experience", type: "number", required: true },
       { name: "email", label: "Email", type: "email", required: true },
       { name: "githubUrl", label: "GitHub URL", type: "url" },

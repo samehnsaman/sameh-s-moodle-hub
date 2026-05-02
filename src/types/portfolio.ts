@@ -27,6 +27,7 @@ export interface UserProfile {
   avatar_url: string;
   hero_image_url?: string;
   favicon_url?: string;
+  ga_tracking_id?: string;
   years_experience: number;
   email: string;
   github_url?: string;

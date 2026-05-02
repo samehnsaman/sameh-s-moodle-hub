@@ -19,6 +19,7 @@ profileRouter.get("/", async (_req, res, next) => {
       avatar_url: profile.avatarUrl,
       hero_image_url: profile.heroImageUrl,
       favicon_url: profile.faviconUrl,
+      ga_tracking_id: (profile as { gaTrackingId?: string }).gaTrackingId ?? "",
       years_experience: profile.yearsExperience,
       email: profile.email,
       github_url: profile.githubUrl,
