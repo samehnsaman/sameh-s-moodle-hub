@@ -21,18 +21,26 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sameh Naim — Freelance Moodle Developer & Full-Stack Engineer" },
+      { title: "Moodle Developer & LMS Expert | WordPress & Web Development — Sameh Naim" },
       {
         name: "description",
         content:
-          "I build custom Moodle plugins, LMS integrations, and school management systems for schools, universities, and training centers.",
+          "Freelance Moodle developer and LMS specialist. I build custom Moodle plugins, WordPress sites and plugins, school management systems, and full-stack web development for schools, universities, and EdTech companies.",
       },
-      { property: "og:title", content: "Sameh Naim — Freelance Moodle Developer" },
+      {
+        name: "keywords",
+        content:
+          "Moodle, Moodle developer, Moodle plugin development, LMS, LMS integration, WordPress, WordPress developer, WordPress plugin, web development, full-stack, e-learning, EdTech, school management system",
+      },
+      { property: "og:title", content: "Moodle Developer & LMS Expert | WordPress & Web Development" },
       {
         property: "og:description",
         content:
-          "Custom Moodle plugins, LMS integrations, and school management systems.",
+          "Custom Moodle plugins, LMS integrations, WordPress development, and school management systems.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:title", content: "Moodle Developer & LMS Expert | WordPress & Web Development" },
+      { name: "twitter:description", content: "Custom Moodle plugins, LMS integrations, and WordPress development." },
     ],
   }),
   component: HomePage,

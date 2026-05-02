@@ -14,12 +14,40 @@ export const Route = createFileRoute("/projects/$slug")({
   head: ({ loaderData }) => {
     const p = loaderData?.project;
     if (!p) return { meta: [{ title: "Project — Sameh Naim" }] };
+    const meta = [
+      { title: `${p.name} — ${p.project_type} | Sameh Naim` },
+      { name: "description", content: p.short_description },
+      {
+        name: "keywords",
+        content: `${p.project_type}, ${p.tech_stack.slice(0, 8).join(", ")}, Moodle, LMS, WordPress, web development`,
+      },
+      { property: "og:title", content: `${p.name} — ${p.project_type}` },
+      { property: "og:description", content: p.short_description },
+      { property: "og:type", content: "article" },
+      ...(p.image_url
+        ? [
+            { property: "og:image", content: p.image_url },
+            { name: "twitter:image", content: p.image_url },
+            { name: "twitter:card", content: "summary_large_image" },
+          ]
+        : []),
+    ];
     return {
-      meta: [
-        { title: `${p.name} — Sameh Naim` },
-        { name: "description", content: p.short_description },
-        { property: "og:title", content: `${p.name} — Sameh Naim` },
-        { property: "og:description", content: p.short_description },
+      meta,
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            name: p.name,
+            description: p.short_description,
+            about: p.project_type,
+            keywords: p.tech_stack.join(", "),
+            author: { "@type": "Person", name: "Sameh Naim" },
+            ...(p.image_url ? { image: p.image_url } : {}),
+          }),
+        },
       ],
     };
   },

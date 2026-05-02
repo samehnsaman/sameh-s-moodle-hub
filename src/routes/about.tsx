@@ -6,17 +6,22 @@ import { getProfile, getProjects } from "@/lib/api-client";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — Sameh Naim" },
+      { title: "About Sameh Naim — Moodle Developer, LMS & WordPress Specialist" },
       {
         name: "description",
         content:
-          "About Sameh Naim — freelance Moodle administrator and full-stack developer based in Cairo, Egypt.",
+          "About Sameh Naim — freelance Moodle developer, LMS specialist, and WordPress / full-stack web developer based in Cairo, Egypt with 8+ years building e-learning platforms.",
       },
-      { property: "og:title", content: "About — Sameh Naim" },
+      {
+        name: "keywords",
+        content:
+          "Moodle developer, LMS specialist, WordPress developer, web developer Cairo, e-learning consultant, EdTech freelancer",
+      },
+      { property: "og:title", content: "About Sameh Naim — Moodle, LMS & WordPress Developer" },
       {
         property: "og:description",
         content:
-          "Freelance Moodle developer and full-stack engineer with a background in school management systems and timetable integrations.",
+          "Freelance Moodle and LMS developer with deep WordPress and full-stack web development experience.",
       },
     ],
   }),

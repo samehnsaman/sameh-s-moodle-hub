@@ -21,6 +21,7 @@ model UserProfile {
   avatarUrl        String  @default("")
   heroImageUrl     String  @default("")
   faviconUrl       String  @default("")
+  gaTrackingId     String  @default("")
   yearsExperience  Int
   email            String
   githubUrl        String?

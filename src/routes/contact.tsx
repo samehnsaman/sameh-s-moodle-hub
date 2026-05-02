@@ -21,17 +21,22 @@ import { Mail, MapPin, AlertCircle, CheckCircle2 } from "lucide-react";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Sameh Naim" },
+      { title: "Hire a Moodle, LMS & WordPress Developer — Contact Sameh Naim" },
       {
         name: "description",
         content:
-          "Get in touch with Sameh Naim about your Moodle plugin, school management system, or integration project.",
+          "Hire a freelance Moodle developer, LMS specialist, or WordPress / web developer. Contact Sameh Naim about your Moodle plugin, LMS integration, or WordPress project.",
       },
-      { property: "og:title", content: "Contact — Sameh Naim" },
+      {
+        name: "keywords",
+        content:
+          "hire Moodle developer, hire LMS developer, hire WordPress developer, freelance web developer contact",
+      },
+      { property: "og:title", content: "Hire a Moodle, LMS & WordPress Developer" },
       {
         property: "og:description",
         content:
-          "Tell me about your Moodle or full-stack project. I reply within one business day.",
+          "Tell me about your Moodle, LMS, or WordPress project. I reply within one business day.",
       },
     ],
   }),

@@ -10,17 +10,22 @@ import type { ProjectType } from "@/types/portfolio";
 export const Route = createFileRoute("/projects")({
   head: () => ({
     meta: [
-      { title: "Projects — Sameh Naim" },
+      { title: "Moodle, LMS & WordPress Projects Portfolio — Sameh Naim" },
       {
         name: "description",
         content:
-          "Selected Moodle plugins, SaaS apps, school management systems, and WordPress work by Sameh Naim.",
+          "Portfolio of Moodle plugins, LMS integrations, WordPress sites and plugins, SaaS apps, and school management systems built by Sameh Naim.",
       },
-      { property: "og:title", content: "Projects — Sameh Naim" },
+      {
+        name: "keywords",
+        content:
+          "Moodle plugin portfolio, LMS projects, WordPress portfolio, web development case studies, school management system projects",
+      },
+      { property: "og:title", content: "Moodle, LMS & WordPress Projects Portfolio" },
       {
         property: "og:description",
         content:
-          "Moodle plugins, SaaS, school management systems, and WordPress projects.",
+          "Moodle plugins, LMS integrations, WordPress sites, SaaS apps, and school management systems.",
       },
     ],
   }),
