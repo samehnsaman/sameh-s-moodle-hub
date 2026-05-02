@@ -51,7 +51,7 @@ function AdminPage() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-2xl px-4 py-16">
+    <div className={`mx-auto w-full px-4 py-12 ${loggedIn ? "max-w-6xl" : "max-w-2xl"}`}>
       <div className="mb-8 flex items-center gap-3">
         <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gold/10 text-gold">
           <Shield className="h-5 w-5" />
