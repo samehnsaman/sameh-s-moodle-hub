@@ -56,8 +56,9 @@ export function EntityList({ model }: Props) {
     setSubmitting(true);
     setSubmitError(null);
     try {
-      if (editing?.id) {
-        await adminApi.update(model.slug, editing.id, data);
+      const existingId = editing?.id ?? (model.singleton ? rows[0]?.id : undefined);
+      if (existingId) {
+        await adminApi.update(model.slug, existingId, data);
       } else {
         await adminApi.create(model.slug, data);
       }
@@ -91,6 +92,40 @@ export function EntityList({ model }: Props) {
     setEditing(null);
     setSubmitError(null);
   };
+
+  // Singleton mode: render the editor inline for the single row.
+  if (model.singleton) {
+    const row = rows[0] ?? null;
+    return (
+      <div className="space-y-4">
+        <div>
+          <h2 className="font-display text-xl font-bold">{model.label}</h2>
+          <p className="text-xs text-foreground/60">
+            {loading ? "Loading…" : row ? "Edit your details below." : "Fill in your details to create your profile."}
+          </p>
+        </div>
+        {loadError && (
+          <div className="rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs text-destructive">
+            {loadError}
+          </div>
+        )}
+        {loading ? (
+          <div className="flex justify-center py-16">
+            <Loader2 className="h-6 w-6 animate-spin text-foreground/40" />
+          </div>
+        ) : (
+          <EntityEditor
+            model={model}
+            initial={row}
+            submitting={submitting}
+            error={submitError}
+            onSubmit={handleSubmit}
+            onCancel={() => { /* no-op for singleton */ }}
+          />
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-4">

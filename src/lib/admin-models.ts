@@ -38,6 +38,9 @@ export interface ModelDef {
   canCreate: boolean;
   /** Whether rows can be deleted from the UI */
   canDelete: boolean;
+  /** When true, the admin renders a single inline form (no list, no dialog).
+   * Used for singletons like Profile where exactly one record should exist. */
+  singleton?: boolean;
   fields: FieldDef[];
 }
 
@@ -176,8 +179,9 @@ export const MODELS: ModelDef[] = [
     titleField: "name",
     subtitleField: "title",
     imageField: "avatarUrl",
-    canCreate: true, // allow creating the initial singleton row from the UI
+    canCreate: true, // auto-creates the initial row inline if none exists
     canDelete: false,
+    singleton: true,
     fields: [
       { name: "name", label: "Name", type: "text", required: true },
       { name: "title", label: "Title", type: "text", required: true },

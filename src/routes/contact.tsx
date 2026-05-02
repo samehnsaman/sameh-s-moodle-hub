@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { toast } from "sonner";
@@ -13,10 +13,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { submitContact } from "@/lib/api-client";
+import { getProfile, submitContact } from "@/lib/api-client";
 import { useDataSource } from "@/hooks/useDataSource";
-import type { ContactPayload } from "@/types/portfolio";
-import { Mail, MapPin, AlertCircle, CheckCircle2 } from "lucide-react";
+import type { ContactPayload, UserProfile } from "@/types/portfolio";
+import { Mail, AlertCircle, CheckCircle2 } from "lucide-react";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -90,8 +90,19 @@ function ContactPage() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
   const { mode, baseUrl } = useDataSource();
   const apiReady = mode === "api" && Boolean(baseUrl);
+
+  useEffect(() => {
+    let cancelled = false;
+    getProfile()
+      .then((p) => { if (!cancelled) setProfile(p); })
+      .catch(() => { /* ignore — fall back to no email displayed */ });
+    return () => { cancelled = true; };
+  }, []);
+
+  const contactEmail = profile?.email ?? "";
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((f) => ({ ...f, [key]: value }));
@@ -162,10 +173,15 @@ function ContactPage() {
               <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
               <div>
                 The contact API isn't configured on this preview yet. Submitting
-                will show a friendly message — for now please email{" "}
-                <a className="font-semibold underline" href="mailto:hello@samehnaim.dev">
-                  hello@samehnaim.dev
-                </a>
+                will show a friendly message
+                {contactEmail ? (
+                  <>
+                    {" "}— for now please email{" "}
+                    <a className="font-semibold underline" href={`mailto:${contactEmail}`}>
+                      {contactEmail}
+                    </a>
+                  </>
+                ) : null}
                 .
               </div>
             </div>
@@ -193,7 +209,7 @@ function ContactPage() {
                 type="email"
                 value={form.email}
                 onChange={(e) => update("email", e.target.value)}
-                placeholder="you@school.edu"
+                placeholder="you@example.com"
                 maxLength={255}
                 required
               />
@@ -259,21 +275,17 @@ function ContactPage() {
         </form>
 
         <aside className="space-y-5 rounded-xl border border-border/60 bg-secondary/40 p-5 text-sm">
-          <div>
-            <div className="text-xs font-semibold uppercase text-muted-foreground">Email</div>
-            <a
-              href="mailto:hello@samehnaim.dev"
-              className="mt-1 inline-flex items-center gap-2 font-medium hover:text-primary"
-            >
-              <Mail className="h-4 w-4" /> hello@samehnaim.dev
-            </a>
-          </div>
-          <div>
-            <div className="text-xs font-semibold uppercase text-muted-foreground">Location</div>
-            <div className="mt-1 inline-flex items-center gap-2 font-medium">
-              <MapPin className="h-4 w-4" /> Cairo, Egypt
+          {contactEmail && (
+            <div>
+              <div className="text-xs font-semibold uppercase text-muted-foreground">Email</div>
+              <a
+                href={`mailto:${contactEmail}`}
+                className="mt-1 inline-flex items-center gap-2 font-medium hover:text-primary"
+              >
+                <Mail className="h-4 w-4" /> {contactEmail}
+              </a>
             </div>
-          </div>
+          )}
           <div>
             <div className="text-xs font-semibold uppercase text-muted-foreground">Response</div>
             <div className="mt-1 font-medium">Within 1 business day</div>
