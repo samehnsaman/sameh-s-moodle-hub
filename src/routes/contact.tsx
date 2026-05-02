@@ -90,8 +90,19 @@ function ContactPage() {
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
   const { mode, baseUrl } = useDataSource();
   const apiReady = mode === "api" && Boolean(baseUrl);
+
+  useEffect(() => {
+    let cancelled = false;
+    getProfile()
+      .then((p) => { if (!cancelled) setProfile(p); })
+      .catch(() => { /* ignore — fall back to no email displayed */ });
+    return () => { cancelled = true; };
+  }, []);
+
+  const contactEmail = profile?.email ?? "";
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((f) => ({ ...f, [key]: value }));
