@@ -126,8 +126,20 @@ export function EntityList({ model }: Props) {
           <Loader2 className="h-6 w-6 animate-spin text-foreground/40" />
         </div>
       ) : rows.length === 0 ? (
-        <div className="rounded-lg border border-dashed border-border py-16 text-center text-sm text-foreground/50">
-          No items yet.
+        <div className="flex flex-col items-center gap-3 rounded-lg border border-dashed border-border py-16 text-center text-sm text-foreground/50">
+          <span>No items yet.</span>
+          {model.canCreate && (
+            <Button
+              size="sm"
+              onClick={() => {
+                setCreating(true);
+                setSubmitError(null);
+              }}
+              className="bg-gold text-gold-foreground hover:bg-gold/90"
+            >
+              <Plus className="mr-1.5 h-4 w-4" /> New {model.label.replace(/s$/, "")}
+            </Button>
+          )}
         </div>
       ) : (
         <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-surface">
