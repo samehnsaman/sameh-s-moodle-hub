@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { toast } from "sonner";
@@ -13,10 +13,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { submitContact } from "@/lib/api-client";
+import { getProfile, submitContact } from "@/lib/api-client";
 import { useDataSource } from "@/hooks/useDataSource";
-import type { ContactPayload } from "@/types/portfolio";
-import { Mail, MapPin, AlertCircle, CheckCircle2 } from "lucide-react";
+import type { ContactPayload, UserProfile } from "@/types/portfolio";
+import { Mail, AlertCircle, CheckCircle2 } from "lucide-react";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
