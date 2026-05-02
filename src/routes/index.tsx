@@ -180,8 +180,6 @@ function HomePage() {
                 </>
               )}
             </div>
-              </div>
-            </div>
 
             <motion.div
               aria-hidden
