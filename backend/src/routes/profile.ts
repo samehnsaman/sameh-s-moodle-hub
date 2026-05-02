@@ -17,6 +17,8 @@ profileRouter.get("/", async (_req, res, next) => {
       short_bio: profile.shortBio,
       long_bio: profile.longBio,
       avatar_url: profile.avatarUrl,
+      hero_image_url: profile.heroImageUrl,
+      favicon_url: profile.faviconUrl,
       years_experience: profile.yearsExperience,
       email: profile.email,
       github_url: profile.githubUrl,

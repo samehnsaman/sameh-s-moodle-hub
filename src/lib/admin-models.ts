@@ -185,6 +185,8 @@ export const MODELS: ModelDef[] = [
       { name: "shortBio", label: "Short bio", type: "textarea", required: true, rows: 2 },
       { name: "longBio", label: "Long bio", type: "textarea", required: true, rows: 6 },
       { name: "avatarUrl", label: "Avatar URL", type: "url" },
+      { name: "heroImageUrl", label: "Hero image URL", type: "url", help: "Replaces the big SN tile on the home page" },
+      { name: "faviconUrl", label: "Favicon URL", type: "url", help: "Browser tab icon (PNG/SVG/ICO)" },
       { name: "yearsExperience", label: "Years of experience", type: "number", required: true },
       { name: "email", label: "Email", type: "email", required: true },
       { name: "githubUrl", label: "GitHub URL", type: "url" },
