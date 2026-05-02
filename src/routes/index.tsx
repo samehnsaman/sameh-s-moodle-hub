@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Sparkles, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -402,7 +402,12 @@ function HomePage() {
                 className="rounded-2xl border border-border bg-surface/40 p-8 backdrop-blur-sm"
               >
                 <div className="font-display text-5xl leading-none text-gold">"</div>
-                <p className="mt-2 text-foreground/80">{t.quote}</p>
+                <div className="mt-2 flex gap-1" aria-label="5 out of 5 stars">
+                  {Array.from({ length: 5 }).map((_, idx) => (
+                    <Star key={idx} className="h-4 w-4 fill-gold text-gold" />
+                  ))}
+                </div>
+                <p className="mt-3 text-foreground/80">{t.quote}</p>
                 <div className="mt-6 border-t border-border pt-4 text-sm">
                   <div className="font-semibold">{t.author}</div>
                   <div className="text-foreground/60">{t.organization}</div>
