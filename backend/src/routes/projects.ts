@@ -25,6 +25,7 @@ function serialize(p: Awaited<ReturnType<typeof prisma.project.findFirst>>) {
     live_url: p.liveUrl,
     demo_url: p.demoUrl,
     github_url: p.githubUrl,
+    image_url: (p as { imageUrl?: string | null }).imageUrl ?? null,
   };
 }
 
