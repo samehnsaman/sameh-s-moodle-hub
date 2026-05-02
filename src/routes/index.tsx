@@ -250,32 +250,63 @@ function HomePage() {
                   <motion.div
                     whileHover={{ y: -6 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className="h-full overflow-hidden rounded-2xl border border-border bg-surface/60 p-8 backdrop-blur-sm transition-colors hover:border-gold/40"
+                    className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface/60 backdrop-blur-sm transition-colors hover:border-gold/40"
                   >
-                    <div className="mb-6 flex flex-wrap items-center gap-2">
-                      <Badge className="bg-primary/20 text-primary-glow">
-                        {p.project_type}
-                      </Badge>
-                      <Badge variant="outline" className="capitalize">
-                        {p.status}
-                      </Badge>
-                    </div>
-                    <div className="flex items-start justify-between gap-4">
-                      <h3 className="font-display text-2xl font-bold sm:text-3xl">
-                        {p.name}
-                      </h3>
-                      <ArrowUpRight className="h-6 w-6 shrink-0 text-foreground/40 transition-all group-hover:text-gold group-hover:rotate-12" />
-                    </div>
-                    <p className="mt-4 text-foreground/70">{p.short_description}</p>
-                    <div className="mt-6 flex flex-wrap gap-2">
-                      {p.tech_stack.slice(0, 4).map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-full bg-surface-2 px-3 py-1 text-xs font-medium text-gold"
-                        >
-                          {t}
-                        </span>
-                      ))}
+                    {p.image_url ? (
+                      <div className="aspect-[16/9] w-full overflow-hidden bg-surface-2">
+                        <img
+                          src={p.image_url}
+                          alt={p.name}
+                          loading="lazy"
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      </div>
+                    ) : null}
+                    <div className="flex flex-1 flex-col p-8">
+                      <div className="mb-6 flex flex-wrap items-center gap-2">
+                        <Badge className="bg-primary/20 text-primary-glow">
+                          {p.project_type}
+                        </Badge>
+                        <Badge variant="outline" className="capitalize">
+                          {p.status}
+                        </Badge>
+                      </div>
+                      <div className="flex items-start justify-between gap-4">
+                        <h3 className="font-display text-2xl font-bold sm:text-3xl">
+                          {p.name}
+                        </h3>
+                        <ArrowUpRight className="h-6 w-6 shrink-0 text-foreground/40 transition-all group-hover:text-gold group-hover:rotate-12" />
+                      </div>
+                      <p className="mt-4 text-foreground/70">{p.short_description}</p>
+                      <div className="mt-6 flex flex-wrap gap-2">
+                        {p.tech_stack.slice(0, 4).map((t) => (
+                          <span
+                            key={t}
+                            className="rounded-full bg-surface-2 px-3 py-1 text-xs font-medium text-gold"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                      {(p.live_url || p.demo_url || p.github_url) && (
+                        <div className="mt-6 flex flex-wrap gap-3 border-t border-border/60 pt-4 text-xs">
+                          {p.live_url && (
+                            <span className="text-foreground/60">
+                              <span className="text-gold">●</span> Live
+                            </span>
+                          )}
+                          {p.demo_url && (
+                            <span className="text-foreground/60">
+                              <span className="text-gold">●</span> Demo
+                            </span>
+                          )}
+                          {p.github_url && (
+                            <span className="text-foreground/60">
+                              <span className="text-gold">●</span> Source
+                            </span>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </motion.div>
                 </Link>
