@@ -5,12 +5,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  TabsContent,
+} from "@/components/ui/tabs";
+import {
   adminLogin,
   adminLogout,
   verifyAdminToken,
 } from "@/lib/admin-auth";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { DataSourceSwitch } from "@/components/site/DataSourceSwitch";
+import { MODELS } from "@/lib/admin-models";
+import { EntityList } from "@/components/admin/EntityList";
+import { getDataMode } from "@/lib/data-source";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
