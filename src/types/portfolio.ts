@@ -25,6 +25,8 @@ export interface UserProfile {
   short_bio: string;
   long_bio: string;
   avatar_url: string;
+  hero_image_url?: string;
+  favicon_url?: string;
   years_experience: number;
   email: string;
   github_url?: string;

@@ -19,6 +19,8 @@ model UserProfile {
   shortBio         String  @db.Text
   longBio          String  @db.Text
   avatarUrl        String  @default("")
+  heroImageUrl     String  @default("")
+  faviconUrl       String  @default("")
   yearsExperience  Int
   email            String
   githubUrl        String?

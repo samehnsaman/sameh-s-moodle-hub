@@ -140,35 +140,45 @@ function HomePage() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
           >
             <div className="relative aspect-square w-full overflow-hidden rounded-3xl border border-border bg-surface/50 backdrop-blur">
-              <div
-                className="absolute inset-0 opacity-80"
-                style={{ background: "var(--gradient-primary)" }}
-              />
-              <div className="absolute inset-0 grid grid-cols-6 grid-rows-6">
-                {Array.from({ length: 36 }).map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="border border-foreground/5"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: [0, 0.4, 0] }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      delay: (i % 7) * 0.2,
-                    }}
+              {profile?.hero_image_url ? (
+                <img
+                  src={profile.hero_image_url}
+                  alt={`${profile?.name ?? "Sameh Naim"} — portrait`}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              ) : (
+                <>
+                  <div
+                    className="absolute inset-0 opacity-80"
+                    style={{ background: "var(--gradient-primary)" }}
                   />
-                ))}
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="font-display text-7xl font-bold text-foreground drop-shadow-lg">
-                    SN
+                  <div className="absolute inset-0 grid grid-cols-6 grid-rows-6">
+                    {Array.from({ length: 36 }).map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className="border border-foreground/5"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: [0, 0.4, 0] }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          delay: (i % 7) * 0.2,
+                        }}
+                      />
+                    ))}
                   </div>
-                  <div className="mt-2 text-sm uppercase tracking-[0.3em] text-foreground/80">
-                    Moodle · Full-Stack
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="font-display text-7xl font-bold text-foreground drop-shadow-lg">
+                        SN
+                      </div>
+                      <div className="mt-2 text-sm uppercase tracking-[0.3em] text-foreground/80">
+                        Moodle · Full-Stack
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                </>
+              )}
             </div>
 
             <motion.div

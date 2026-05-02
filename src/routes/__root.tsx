@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
@@ -5,6 +6,8 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { AdminOnlyDataSourceSwitch } from "@/components/site/AdminOnlyDataSourceSwitch";
+import { useFetch } from "@/hooks/useDataSource";
+import { getProfile } from "@/lib/api-client";
 
 function NotFoundComponent() {
   return (
@@ -71,6 +74,19 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
+  const { data: profile } = useFetch(() => getProfile());
+  useEffect(() => {
+    const href = profile?.favicon_url;
+    if (!href || typeof document === "undefined") return;
+    let link = document.querySelector<HTMLLinkElement>("link[rel~='icon']");
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = "icon";
+      document.head.appendChild(link);
+    }
+    link.href = href;
+  }, [profile?.favicon_url]);
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
