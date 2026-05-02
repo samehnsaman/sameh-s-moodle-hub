@@ -163,9 +163,11 @@ function DashboardPanel({
   email: string | null;
   verifying: boolean;
 }) {
+  const isMock = getDataMode() === "mock";
+
   return (
-    <div className="space-y-4 rounded-2xl border border-border bg-surface p-6 shadow-sm">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-surface p-5 shadow-sm">
         <div>
           <div className="text-xs uppercase tracking-wider text-foreground/60">
             Signed in as
@@ -180,19 +182,36 @@ function DashboardPanel({
         </div>
       </div>
 
-      <div className="rounded-lg border border-border bg-background/60 p-4 text-xs leading-relaxed text-foreground/70">
-        <p className="font-semibold text-foreground">Editing content</p>
-        <p className="mt-1">
-          Content (profile, projects, services, skills, testimonials, plugins)
-          is edited through the backend admin API. Use the{" "}
-          <strong>Data Source switch</strong> at the bottom-right to toggle
-          between mock data and live API mode for previewing.
-        </p>
-        <p className="mt-2">
-          Full curl examples are in the project <code>README.md</code> under
-          “Admin login from the command line”.
-        </p>
-      </div>
+      {isMock && (
+        <div className="rounded-lg border border-gold/30 bg-gold/5 px-4 py-3 text-xs text-foreground/80">
+          <strong className="text-gold">Heads up:</strong> Data Source is set to{" "}
+          <strong>Mock</strong>. The editor below reads/writes the live backend
+          either way, but the public site is still showing seed data. Switch to{" "}
+          <strong>API</strong> using the toggle in the bottom-right to preview
+          your edits live.
+        </div>
+      )}
+
+      <Tabs defaultValue={MODELS[0].slug} className="w-full">
+        <TabsList className="flex w-full flex-wrap justify-start gap-1 bg-surface p-1">
+          {MODELS.map((m) => (
+            <TabsTrigger
+              key={m.slug}
+              value={m.slug}
+              className="data-[state=active]:bg-gold data-[state=active]:text-gold-foreground"
+            >
+              {m.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        {MODELS.map((m) => (
+          <TabsContent key={m.slug} value={m.slug} className="mt-6">
+            <div className="rounded-2xl border border-border bg-surface p-5 shadow-sm">
+              <EntityList model={m} />
+            </div>
+          </TabsContent>
+        ))}
+      </Tabs>
     </div>
   );
 }
