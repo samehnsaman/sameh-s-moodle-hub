@@ -4,7 +4,7 @@ import appCss from "../styles.css?url";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { Toaster } from "@/components/ui/sonner";
-import { DataSourceSwitch } from "@/components/site/DataSourceSwitch";
+import { AdminOnlyDataSourceSwitch } from "@/components/site/AdminOnlyDataSourceSwitch";
 
 function NotFoundComponent() {
   return (
@@ -79,7 +79,7 @@ function RootComponent() {
       </main>
       <Footer />
       <Toaster richColors position="top-right" />
-      <DataSourceSwitch />
+      <AdminOnlyDataSourceSwitch />
     </div>
   );
 }
