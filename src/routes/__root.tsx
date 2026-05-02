@@ -36,23 +36,64 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Sameh Naim — Freelance Moodle Developer & Full-Stack Engineer" },
+      { title: "Sameh Naim — Moodle Developer, LMS & WordPress Expert" },
       {
         name: "description",
         content:
-          "Freelance Moodle developer and full-stack engineer in Cairo. Custom Moodle plugins, school management systems, and LMS integrations.",
+          "Freelance Moodle developer, LMS specialist, and full-stack web developer. Custom Moodle plugins, WordPress development, school management systems, and LMS integrations.",
+      },
+      {
+        name: "keywords",
+        content:
+          "Moodle developer, Moodle plugin development, LMS development, LMS integration, WordPress developer, WordPress plugin, web development, full-stack developer, school management system, e-learning, EdTech, Moodle expert, freelance developer, Cairo Egypt",
       },
       { name: "author", content: "Sameh Naim" },
-      { property: "og:title", content: "Sameh Naim — Freelance Moodle Developer" },
+      { name: "robots", content: "index, follow, max-image-preview:large" },
+      { property: "og:site_name", content: "Sameh Naim" },
+      { property: "og:title", content: "Sameh Naim — Moodle Developer, LMS & WordPress Expert" },
       {
         property: "og:description",
         content:
-          "Custom Moodle plugins, LMS integrations, and school management systems for educational organizations.",
+          "Custom Moodle plugins, LMS integrations, WordPress development, and school management systems.",
       },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      { property: "og:locale", content: "en_US" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Sameh Naim — Moodle Developer, LMS & WordPress Expert" },
+      {
+        name: "twitter:description",
+        content:
+          "Custom Moodle plugins, LMS integrations, and WordPress development.",
+      },
+      { name: "theme-color", content: "#0b0b0f" },
     ],
-    links: [{ rel: "stylesheet", href: appCss }],
+    links: [
+      { rel: "stylesheet", href: appCss },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: "Sameh Naim",
+          jobTitle: "Freelance Moodle Developer & Full-Stack Engineer",
+          url: typeof window !== "undefined" ? window.location.origin : undefined,
+          address: { "@type": "PostalAddress", addressLocality: "Cairo", addressCountry: "EG" },
+          knowsAbout: [
+            "Moodle",
+            "Moodle plugin development",
+            "LMS",
+            "Learning Management Systems",
+            "WordPress",
+            "WordPress plugin development",
+            "PHP",
+            "Web development",
+            "School management systems",
+          ],
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -75,6 +116,8 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { data: profile } = useFetch(() => getProfile());
+
+  // Dynamic favicon
   useEffect(() => {
     const href = profile?.favicon_url;
     if (!href || typeof document === "undefined") return;
@@ -86,6 +129,36 @@ function RootComponent() {
     }
     link.href = href;
   }, [profile?.favicon_url]);
+
+  // Canonical URL (per-page)
+  useEffect(() => {
+    if (typeof document === "undefined" || typeof window === "undefined") return;
+    let link = document.querySelector<HTMLLinkElement>("link[rel='canonical']");
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = "canonical";
+      document.head.appendChild(link);
+    }
+    link.href = window.location.origin + window.location.pathname;
+  });
+
+  // Google Analytics (GA4) — injected only when an ID is configured in admin.
+  useEffect(() => {
+    const id = profile?.ga_tracking_id?.trim();
+    if (!id || typeof document === "undefined") return;
+    if (document.getElementById("ga-loader")) return;
+
+    const s1 = document.createElement("script");
+    s1.id = "ga-loader";
+    s1.async = true;
+    s1.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
+    document.head.appendChild(s1);
+
+    const s2 = document.createElement("script");
+    s2.id = "ga-init";
+    s2.text = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${id}');`;
+    document.head.appendChild(s2);
+  }, [profile?.ga_tracking_id]);
 
   return (
     <div className="flex min-h-screen flex-col">
