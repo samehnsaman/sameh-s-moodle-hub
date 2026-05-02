@@ -56,8 +56,9 @@ export function EntityList({ model }: Props) {
     setSubmitting(true);
     setSubmitError(null);
     try {
-      if (editing?.id) {
-        await adminApi.update(model.slug, editing.id, data);
+      const existingId = editing?.id ?? (model.singleton ? rows[0]?.id : undefined);
+      if (existingId) {
+        await adminApi.update(model.slug, existingId, data);
       } else {
         await adminApi.create(model.slug, data);
       }
