@@ -67,6 +67,7 @@ export interface Project {
   live_url?: string | null;
   demo_url?: string | null;
   github_url?: string | null;
+  image_url?: string | null;
 }
 
 export interface Testimonial {
