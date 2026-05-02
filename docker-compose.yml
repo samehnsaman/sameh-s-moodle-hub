@@ -1,18 +1,15 @@
-# Self-hosted stack for the portfolio backend.
-# Run from repository root:  docker compose up -d --build
-
 services:
   db:
     image: postgres:16-alpine
     restart: unless-stopped
     environment:
       POSTGRES_USER: ${DB_USER:-portfolio}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-changeme_strong_password}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-change_this_password}
       POSTGRES_DB: ${DB_NAME:-portfolio}
     volumes:
       - portfolio_db:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+    networks:
+      - internal
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-portfolio} -d ${DB_NAME:-portfolio}"]
       interval: 5s
@@ -29,8 +26,40 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    ports:
-      - "4000:4000"
+    networks:
+      - internal
+      - traefik_proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik_proxy"
+      - "traefik.http.routers.portfolio-api.rule=Host(`samykhalil.me`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.portfolio-api.entrypoints=websecure"
+      - "traefik.http.routers.portfolio-api.tls.certresolver=le"
+      - "traefik.http.middlewares.portfolio-api-strip.stripprefix.prefixes=/api"
+      - "traefik.http.routers.portfolio-api.middlewares=portfolio-api-strip"
+      - "traefik.http.services.portfolio-api.loadbalancer.server.port=4000"
 
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - backend
+    networks:
+      - traefik_proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik_proxy"
+      - "traefik.http.routers.portfolio-frontend.rule=Host(`samykhalil.me`)"
+      - "traefik.http.routers.portfolio-frontend.entrypoints=websecure"
+      - "traefik.http.routers.portfolio-frontend.tls.certresolver=le"
+     # - "traefik.http.services.portfolio-frontend.loadbalancer.server.port=80"
+      - "traefik.http.services.portfolio-frontend.loadbalancer.server.port=3000"
 volumes:
   portfolio_db:
+
+networks:
+  internal:
+  traefik_proxy:
+    external: true
