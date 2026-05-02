@@ -148,7 +148,6 @@ export function EntityList({ model }: Props) {
                 {model.imageField && (
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-background">
                     {img ? (
-                      // eslint-disable-next-line @next/next/no-img-element
                       <img src={img} alt="" className="h-full w-full object-cover" />
                     ) : (
                       <ImageOff className="h-4 w-4 text-foreground/30" />
