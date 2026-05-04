@@ -211,6 +211,23 @@ function HomePage() {
             </h2>
           </Reveal>
 
+          <Reveal className="mb-12">
+            <div className="rounded-2xl border border-gold/30 bg-gold/5 p-6 text-center backdrop-blur-sm sm:p-8">
+              <div className="text-xs font-semibold uppercase tracking-[0.25em] text-gold">
+                New
+              </div>
+              <h3 className="mt-3 font-display text-2xl font-bold sm:text-3xl">
+                Custom Moodle Mobile Apps
+              </h3>
+              <p className="mx-auto mt-3 max-w-2xl text-foreground/70">
+                I build branded Moodle mobile apps (iOS & Android) ready to be
+                published on the App Store and Google Play under{" "}
+                <span className="font-semibold text-foreground">your own developer account</span>
+                {" "}— your branding, your store presence, your users.
+              </p>
+            </div>
+          </Reveal>
+
           <MotionDiv
             initial="hidden"
             whileInView="show"
@@ -400,21 +417,69 @@ function HomePage() {
                 key={i}
                 variants={fadeUp}
                 className="rounded-2xl border border-border bg-surface/40 p-8 backdrop-blur-sm"
+                itemScope
+                itemType="https://schema.org/Review"
               >
+                <meta itemProp="itemReviewed" content={profile?.name ?? "Sameh Naim"} />
                 <div className="font-display text-5xl leading-none text-gold">"</div>
-                <div className="mt-2 flex gap-1" aria-label="5 out of 5 stars">
+                <div
+                  className="mt-2 flex gap-1"
+                  itemProp="reviewRating"
+                  itemScope
+                  itemType="https://schema.org/Rating"
+                  aria-label="Rated 5 out of 5 stars"
+                >
+                  <meta itemProp="ratingValue" content="5" />
+                  <meta itemProp="bestRating" content="5" />
+                  <meta itemProp="worstRating" content="1" />
                   {Array.from({ length: 5 }).map((_, idx) => (
-                    <Star key={idx} className="h-4 w-4 fill-gold text-gold" />
+                    <Star key={idx} className="h-4 w-4 fill-gold text-gold" aria-hidden="true" />
                   ))}
                 </div>
-                <p className="mt-3 text-foreground/80">{t.quote}</p>
-                <div className="mt-6 border-t border-border pt-4 text-sm">
-                  <div className="font-semibold">{t.author}</div>
-                  <div className="text-foreground/60">{t.organization}</div>
+                <p className="mt-3 text-foreground/80" itemProp="reviewBody">{t.quote}</p>
+                <div
+                  className="mt-6 border-t border-border pt-4 text-sm"
+                  itemProp="author"
+                  itemScope
+                  itemType="https://schema.org/Person"
+                >
+                  <div className="font-semibold" itemProp="name">{t.author}</div>
+                  <div className="text-foreground/60" itemProp="worksFor">{t.organization}</div>
                 </div>
               </motion.div>
             ))}
           </MotionDiv>
+
+          {(testimonials ?? []).length > 0 && (
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "Person",
+                  name: profile?.name ?? "Sameh Naim",
+                  jobTitle: "Moodle Developer & LMS Expert",
+                  aggregateRating: {
+                    "@type": "AggregateRating",
+                    ratingValue: "5",
+                    bestRating: "5",
+                    worstRating: "1",
+                    reviewCount: (testimonials ?? []).length,
+                  },
+                  review: (testimonials ?? []).map((t) => ({
+                    "@type": "Review",
+                    reviewRating: {
+                      "@type": "Rating",
+                      ratingValue: "5",
+                      bestRating: "5",
+                    },
+                    author: { "@type": "Person", name: t.author },
+                    reviewBody: t.quote,
+                  })),
+                }),
+              }}
+            />
+          )}
         </div>
       </section>
 
