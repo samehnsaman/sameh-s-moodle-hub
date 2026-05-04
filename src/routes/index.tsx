@@ -211,6 +211,23 @@ function HomePage() {
             </h2>
           </Reveal>
 
+          <Reveal className="mb-12">
+            <div className="rounded-2xl border border-gold/30 bg-gold/5 p-6 text-center backdrop-blur-sm sm:p-8">
+              <div className="text-xs font-semibold uppercase tracking-[0.25em] text-gold">
+                New
+              </div>
+              <h3 className="mt-3 font-display text-2xl font-bold sm:text-3xl">
+                Custom Moodle Mobile Apps
+              </h3>
+              <p className="mx-auto mt-3 max-w-2xl text-foreground/70">
+                I build branded Moodle mobile apps (iOS & Android) ready to be
+                published on the App Store and Google Play under{" "}
+                <span className="font-semibold text-foreground">your own developer account</span>
+                {" "}— your branding, your store presence, your users.
+              </p>
+            </div>
+          </Reveal>
+
           <MotionDiv
             initial="hidden"
             whileInView="show"
