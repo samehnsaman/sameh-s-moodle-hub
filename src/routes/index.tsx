@@ -420,7 +420,14 @@ function HomePage() {
                 itemScope
                 itemType="https://schema.org/Review"
               >
-                <meta itemProp="itemReviewed" content={profile?.name ?? "Sameh Naim"} />
+                <div
+                  itemProp="itemReviewed"
+                  itemScope
+                  itemType="https://schema.org/Organization"
+                  style={{ display: "none" }}
+                >
+                  <meta itemProp="name" content={profile?.name ?? "Sameh Naim"} />
+                </div>
                 <div className="font-display text-5xl leading-none text-gold">"</div>
                 <div
                   className="mt-2 flex gap-1"
@@ -468,6 +475,10 @@ function HomePage() {
                   },
                   review: (testimonials ?? []).map((t) => ({
                     "@type": "Review",
+                    itemReviewed: {
+                      "@type": "Organization",
+                      name: profile?.name ?? "Sameh Naim",
+                    },
                     reviewRating: {
                       "@type": "Rating",
                       ratingValue: "5",
