@@ -423,7 +423,7 @@ function HomePage() {
                 <div
                   itemProp="itemReviewed"
                   itemScope
-                  itemType="https://schema.org/Person"
+                  itemType="https://schema.org/Organization"
                   style={{ display: "none" }}
                 >
                   <meta itemProp="name" content={profile?.name ?? "Sameh Naim"} />
