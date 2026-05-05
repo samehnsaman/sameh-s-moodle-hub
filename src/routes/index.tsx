@@ -475,6 +475,10 @@ function HomePage() {
                   },
                   review: (testimonials ?? []).map((t) => ({
                     "@type": "Review",
+                    itemReviewed: {
+                      "@type": "Organization",
+                      name: profile?.name ?? "Sameh Naim",
+                    },
                     reviewRating: {
                       "@type": "Rating",
                       ratingValue: "5",
