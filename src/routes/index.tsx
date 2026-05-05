@@ -420,7 +420,14 @@ function HomePage() {
                 itemScope
                 itemType="https://schema.org/Review"
               >
-                <meta itemProp="itemReviewed" content={profile?.name ?? "Sameh Naim"} />
+                <div
+                  itemProp="itemReviewed"
+                  itemScope
+                  itemType="https://schema.org/Person"
+                  style={{ display: "none" }}
+                >
+                  <meta itemProp="name" content={profile?.name ?? "Sameh Naim"} />
+                </div>
                 <div className="font-display text-5xl leading-none text-gold">"</div>
                 <div
                   className="mt-2 flex gap-1"
